@@ -6,8 +6,6 @@ const gridHeight = 10;
 
 const framerate = 10;
 
-const maxColor = 0;
-
 let canvas = document.createElement('canvas');
 canvas.width = width;
 canvas.height = height;
@@ -26,10 +24,20 @@ ctx.fillRect(0, 0, width, height);
 
 let stateBank = {};
 
-function drawColors () {
-    const red = 255;
-    const green = 255;
-    const blue = 255;
+canvas.addEventListener('mousemove', (e) => {
+    ({mouseX, mouseY} = getMousePos(canvas, e));
+    followMouse();
+});
+
+function getMousePos(canvas, evt) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      mouseX: evt.clientX - rect.left,
+      mouseY: evt.clientY - rect.top
+    };
+}
+function followMouse () {
+    const white = [255, 255, 255].join(',');
 
     const x = Math.floor(mouseX / gridWidth) * gridWidth;
     const y = Math.floor(mouseY / gridHeight) * gridHeight;
@@ -41,7 +49,7 @@ function drawColors () {
     previousRect.x = x;
     previousRect.y = y;
 
-    ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
+    ctx.fillStyle = `rgb(${white})`;
     ctx.fillRect(x, y, gridWidth, gridHeight);
     clearInterval(stateBank[`${x}-${y}`]);
 }
@@ -65,17 +73,4 @@ function fade (x, y) {
     }, framerate);
 
     return interval;
-}
-
-canvas.addEventListener('mousemove', (e) => {
-    ({mouseX, mouseY} = getMousePos(canvas, e));
-    drawColors();
-});
-
-function getMousePos(canvas, evt) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-      mouseX: evt.clientX - rect.left,
-      mouseY: evt.clientY - rect.top
-    };
 }
