@@ -1,0 +1,15 @@
+{
+  "name": "canvas-gol",
+  "version": "1.0.0",
+  "description": "An iteractive game of live implementation with canvas",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://www.github.com/wytrych/canvas-gol"
+  },
+  "author": "Marcin Wolniewicz",
+  "license": "MIT"
+}
